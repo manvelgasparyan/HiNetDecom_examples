@@ -3,40 +3,16 @@ from tkinter import filedialog, Tk, simpledialog
 import matplotlib.pyplot as plt
 #=======================================================================================================================
 #=======================================================================================================================
-root = Tk() 
-root.withdraw()  
-#Extract the file_path
-file_path = filedialog.askopenfilename(parent=root, title="Select SBML file", filetypes=[("All files", "*.*")]) 
-#---
-if not file_path: # If no file is selected
-    print(f"tNo file selected.\n")
-    sys.exit(1)
-#---
-#Extract file_name
-file_name = os.path.basename(file_path).split('.')[0] # Get the file name
-print()
-print()
-print(f"\tBioModel ID: {file_name}.\n")
-print() 
+#b2AR model
+# file_path = 'b2AR_PKA_v5_removed_reaction.xml'
+#EGFR model
+file_path = 'D4_model_EGFR_v13b_removed_reaction.xml'
 #=======================================================================================================================
 #=======================================================================================================================
+file_name = os.path.basename(file_path).split('.')[0] # Get the file names
 reader = libsbml.SBMLReader()
-#Extract the document
-document = reader.readSBMLFromFile(file_path)
-#---
-errors = document.getNumErrors()
-if errors > 0:
-    print(f"Error loading the SBML file:")
-    for e in range(errors):
-        print(f"\t{document.getError(e).getMessage()}")
-    #sys.exit(1)
-#---
-#Extract the model
+document = reader.readSBML(file_path)
 model = document.getModel()
-#---
-if model is None:
-    print(f"No model found in the SBML file.\n")
-    sys.exit(1)
 #=======================================================================================================================
 #=======================================================================================================================
 def logical_test(reaction , species_id: str) -> bool:
@@ -67,6 +43,13 @@ for i1 in range(len(species)):
                 if test_1 and test_2 and not test_3 and (i2+1, i1+1) not in edges_G and i1 != i2:
                     edges_G.append((i2+1,i1+1))
 G.add_edges_from(edges_G)
+#-------------------
+fig = plt.figure()
+fig.canvas.manager.set_window_title(f"Interaction graph: {file_name}")
+pos = networkx.kamada_kawai_layout(G)
+networkx.draw(G, pos, with_labels=True, arrows=True, node_color='lightblue', node_size=1000, edgecolors='black', linewidths=2)
+networkx.draw_networkx_edges(G, pos, arrows=True, arrowsize=25, width=2)
+plt.show(block=False) 
 #=======================================================================================================================
 #=======================================================================================================================
 nodes_G = G.nodes()
@@ -89,11 +72,23 @@ for u in nodes_G:
         #------------   
         if u != v and f_1 <= 1 and f_2 <= 1 and f_1*f_2 != 0 and not Gun.has_edge(u,v) and not Gun.has_edge(v,u):
             Gun.add_edge(u, v)
+#---------------------------------------------    
+fig = plt.figure()
+fig.canvas.manager.set_window_title(f"Undirected graph: {file_name}")
+pos = networkx.kamada_kawai_layout(Gun)
+networkx.draw(Gun, pos, with_labels=True, arrows=True, node_color='lightblue', node_size=1000, edgecolors='black', linewidths=2)
+networkx.draw_networkx_edges(Gun, pos, arrows=True, arrowsize=25, width=2)
+plt.show(block=False) 
 #=======================================================================================================================
 #=======================================================================================================================
 #rsccs in terms of species ids and names
 r_sccs_index = [list(component) for component in networkx.connected_components(Gun)]
 r_sccs_species_names = [[species[val-1] for val in sublist] for sublist in r_sccs_index]
+#---
+print(f"\tThe r-strongly connected components:{r_sccs_species_names}.\n")
+print()
+print(f"\tThe r-strongly connected components (indices):{r_sccs_index}.\n")
+print()
 #=======================================================================================================================
 #=======================================================================================================================
 #Quotient graph
