@@ -203,7 +203,7 @@ for i in range(min(r_sccs_scores), max(r_sccs_scores)+1):
     aut_pairs_index.append(aut_pairs_i.copy())
     aut_pairs_names.append(aut_pairs_ii.copy())
 #--------    
-print(f"\tHiearachical levels:{aut_pairs_names}\n")  
+print(f"\tHierachical levels:{aut_pairs_names}\n")  
 print()
 #=======================================================================================================================
 #=======================================================================================================================
