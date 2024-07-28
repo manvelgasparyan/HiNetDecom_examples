@@ -4,9 +4,10 @@ This GitHub repository contains a Python implementation of the nested hierarchic
 
 The package includes six SBML files corresponding to two biomodels: b2AR_PKA_v5 and D4_model_EGFR_v13b. Each model has three associated files:
 
-1. b2AR_PKA_v5_original.xml - This SBML file represents the original model1.
-2. b2AR_PKA_v5_removed_reaction.xml - This SBML file represents the original model1 with certain reversible reactions modified     to be irreversible (refer to the cited journal article for details).
-3. b2AR_PKA_v5_reduced.xml - This SBML file represents the Michaelis-Menten reduced version of model1 with specific reactions      removed as mentioned.
+1. b2AR_PKA_v5_original.xml - This SBML file represents the original model, referred to as Model1.
+2. b2AR_PKA_v5_removed_reaction.xml - This SBML file represents the original Model1 with certain reversible reactions modified
+   to be irreversible (refer to the cited journal article for details). We further refer to this model as Model2.
+4. b2AR_PKA_v5_reduced.xml - This SBML file represents the Michaelis-Menten reduced version of Model2.
    
 Similarly, the files for EGFR are:
 
@@ -14,4 +15,6 @@ Similarly, the files for EGFR are:
 2. D4_model_EGFR_v13b_removed_reaction.xml
 3. D4_model_EGFR_v13b_reduced.xml
 
-The Python package accepts an SBML file (either 'b2AR_PKA_v5_reduced.xml' or 'D4_model_EGFR_v13b_reduced.xml') as input and produces hierarchical levels of species subsets. Each subset is nested within the next, collectively forming the complete decomposition.
+The Python code accepts an SBML file (either 'b2AR_PKA_v5_reduced.xml' or 'D4_model_EGFR_v13b_reduced.xml') as input and produces hierarchical levels of species subsets. Each subset is nested within the next, collectively forming the complete decomposition.
+
+To run the code 
