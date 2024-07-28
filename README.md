@@ -25,7 +25,7 @@ python3 --version
 If Python 3 is not installed, download and install it from the official Python website.
 2. Install Required Packages:
 The script uses several Python packages. Install them using pip:
-pip3 install libsbml numpy networkx matplotlib
+pip3 install python-libsbml numpy networkx matplotlib
 3. Download the Script:
 Save the decomposition_procedure.py script to your working directory.
 4. Prepare the Input File:
