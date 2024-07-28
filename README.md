@@ -21,17 +21,17 @@ The Python code accepts an SBML file (either 'b2AR_PKA_v5_reduced.xml' or 'D4_mo
 To run the code:
 1. Ensure Python3 is Installed:
 Make sure Python 3.x is installed on your system. You can check this by running:
-python3 --version
+python --version
 If Python 3 is not installed, download and install it from the official Python website.
 2. Install Required Packages:
 The script uses several Python packages. Install them using pip:
-pip3 install python-libsbml numpy networkx matplotlib
+python -m pip install python-libsbml numpy networkx matplotlib
 3. Download the Script:
 Save the decomposition_procedure.py script to your working directory.
 4. Prepare the Input File:
 Ensure the D4_model_EGFR_v13b_removed_reaction.xml file (or another specified SBML file) is in the same directory as the script.
 5. Run the Script:
 Execute the script from the command line. Navigate to the directory containing decomposition_procedure.py and run:
-python3 decomposition_procedure.py
+python decomposition_procedure.py
 
 
